@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,user-scalable=no,initial-scale=1">
+
+    <title>Luna Surface</title>
+
+    <style type="text/css">
+      #game {
+        border: 1px solid black;
+        width : 800px;
+        height : 600px;
+      }
+    </style>
+
+    <!-- Inline scripts are forbidden in Firefox OS apps (CSP restrictions),
+         so we use a script file. -->
+    <script src="js/utils/Canvas.js" defer></script>
+    <script src="js/GameConfig.js" defer></script>
+    <script src="js/Point.js" defer></script>
+    <script src="js/CheckPoint.js" defer></script>
+    <script src="js/CheckPointManager.js" defer></script>
+    <script src="js/GameObject.js" defer></script>
+    <script src="js/Ground.js" defer></script>
+    <script src="js/app.js" defer></script>
+
+
+  </head>
+
+  <body>
+    <canvas id="game"></canvas>
+  </body>
+
+</html>
