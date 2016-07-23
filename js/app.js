@@ -3,16 +3,21 @@ window.addEventListener("load", function() {
   console.log("load game window");
   
   var gameConfig = new GameConfig();
-  var checkPointManager = new CheckPointManager();
-  var grounds = new Array();
-  for(var i = 0; i < gameConfig.getHeight(); i += Ground.getHeight()){
-    for(var j = 0; j < gameConfig.getWidth(); j += Ground.getWidth()){
-      var ground = new Ground();
-      ground.setPoint(new Point(j, i));
-      ground.draw();
+
+  var objectManager = new ObjectManager();
+  
+  // フィールドを登録
+  for(var fieldXIndex = 0; fieldXIndex < gameConfig.getWidth(); fieldXIndex += Field.getWidth()){
+    for(var fieldYIndex = 0; fieldYIndex < gameConfig.getHeight(); fieldYIndex += Field.getHeight()){
+      objectManager.regist(new Field(new Point(fieldXIndex, fieldYIndex)));
     }
   }
+  
+  for(var checkPointIndex = 0; checkPointIndex < 3; checkPointIndex++){
+     objectManager.regist(new CheckPoint(new Point(parseInt(Math.random() * gameConfig.getWidth()), parseInt(Math.random() * gameConfig.getHeight()))));
+//    objectManager.regist(new CheckPoint(new Point(40*checkPointIndex, 40*checkPointIndex)));
 
-  var checkPointManager = new CheckPointManager();
-  checkPointManager.draw();
+  }
+  
+  objectManager.draw();
 });
