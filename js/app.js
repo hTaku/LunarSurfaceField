@@ -18,10 +18,19 @@ window.addEventListener("load", function() {
     checkPoints.push(new CheckPoint(new Point(parseInt(Math.random() * gameConfig.getWidth()), parseInt(Math.random() * gameConfig.getHeight()))).getImage());  
 
   }
+
+  var playerX = 0, playerY = 0;
+  var socket = io();
+  socket.on('point', function(data){
+    playerX = data.x;
+    playerY = data.y;
+  });
+  var player = new Player(new Point(playerX, playerY))
+
   
   var canvas = document.getElementById(gameConfig.getBuffer());
   var context = canvas.getContext('2d');
-  setInterval(drawEvent, 1000, context, gameConfig, fields, checkPoints, new Player(new Point(10, 10)).getImage());
+  setInterval(drawEvent, 1000, context, gameConfig, fields, checkPoints, player.getImage());
 
 //  var canvas = new Canvas(gameConfig.getBuffer(), gameConfig.getWidth(), gameConfig.getHeight());
 //  canvas.draw(objects);
@@ -29,7 +38,6 @@ window.addEventListener("load", function() {
 
 function drawEvent(context, config, fields, checkPoints, player){
   for(var fi in fields){
-    console.log("field["+fi+"]" + fields[fi] + " (" + fields[fi].getX() + "," + fields[fi].getY() + ")");
     fields[fi].getImage().addEventListener('load', function(){
       for(var fj in fields){
         context.drawImage(fields[fj].getImage(), fields[fj].getX(), fields[fj].getY());
@@ -38,19 +46,16 @@ function drawEvent(context, config, fields, checkPoints, player){
   }
   
   for(var cpi in checkPoints){
-    console.log("checkPoint["+cpi+"]" + checkPoints[cpi] + " (" + checkPoints[cpi].getX() + "," + checkPoints[cpi].getY() + ")");
     checkPoints[cpi].getImage().addEventListener('load', function() {
       for(var cpj in checkPoints){
         context.drawImage(checkPoints[cpj].getImage(), checkPoints[cpj].getX(), checkPoints[cpj].getY());
       }
     }, false);
   }
-  
+
   console.log("player (" + player.getX() + "," + player.getY() + ")");
   player.getImage().addEventListener('load', function(){
     context.drawImage(player.getImage(), player.getX(), player.getY());
   }, false);
   
-  player.setX(player.getX() + 10);
-  player.setY(player.getY() + 10);
 }
