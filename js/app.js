@@ -21,13 +21,13 @@ window.addEventListener("load", function() {
   
   var canvas = document.getElementById(gameConfig.getBuffer());
   var context = canvas.getContext('2d');
-  setInterval(drawEvent, 1000, context, gameConfig, fields, checkPoints);
+  setInterval(drawEvent, 1000, context, gameConfig, fields, checkPoints, new Player(new Point(10, 10)).getImage());
 
 //  var canvas = new Canvas(gameConfig.getBuffer(), gameConfig.getWidth(), gameConfig.getHeight());
 //  canvas.draw(objects);
 });
 
-function drawEvent(context, config, fields, checkPoints){
+function drawEvent(context, config, fields, checkPoints, player){
   for(var fi in fields){
     console.log("field["+fi+"]" + fields[fi] + " (" + fields[fi].getX() + "," + fields[fi].getY() + ")");
     fields[fi].getImage().addEventListener('load', function(){
@@ -44,6 +44,13 @@ function drawEvent(context, config, fields, checkPoints){
         context.drawImage(checkPoints[cpj].getImage(), checkPoints[cpj].getX(), checkPoints[cpj].getY());
       }
     }, false);
-//    context.drawImage(checkPoint.getImage(), checkPoint.getX(), checkPoint.getY());
   }
+  
+  console.log("player (" + player.getX() + "," + player.getY() + ")");
+  player.getImage().addEventListener('load', function(){
+    context.drawImage(player.getImage(), player.getX(), player.getY());
+  }, false);
+  
+  player.setX(player.getX() + 10);
+  player.setY(player.getY() + 10);
 }

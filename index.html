@@ -10,6 +10,9 @@
       #game {
         border: 1px solid black;
       }
+      #buffer{
+        border: 1px solid black;
+      }
     </style>
 
     <!-- Inline scripts are forbidden in Firefox OS apps (CSP restrictions),
@@ -19,7 +22,8 @@
   </head>
 
   <body>
-    <canvas id="game"></canvas>
+    <canvas id="game" width="400" height="400"></canvas>
+    <canvas id="buffer" width="400" height="400"></canvas>
   </body>
     <script src="js/utils/Canvas.js" defer></script>
     <script src="js/utils/Point.js" defer></script>
@@ -27,6 +31,7 @@
     <script src="js/GameConfig.js" defer></script>
     <script src="js/objects/GameObject.js" defer></script>
     <script src="js/objects/CheckPoint.js" defer></script>
+    <script src="js/objects/Player.js" defer></script>
     <script src="js/objects/Field.js" defer></script>
     <script src="js/ObjectManager.js" defer></script>
     <script src="js/app.js" defer></script>
