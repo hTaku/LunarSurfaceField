@@ -20,20 +20,12 @@ window.addEventListener("load", function() {
   }
 
   var playerX = 0, playerY = 0;
-  var socket = io();
-  socket.on('point', function(data){
-    playerX = data.x;
-    playerY = data.y;
-  });
-  var player = new Player(new Point(playerX, playerY))
-
+  var player = new Player(new Point(playerX, playerY))  
   
-  var canvas = document.getElementById(gameConfig.getBuffer());
+  var canvas = document.getElementById(gameConfig.getWindow());
   var context = canvas.getContext('2d');
-  setInterval(drawEvent, 1000, context, gameConfig, fields, checkPoints, player.getImage());
-
-//  var canvas = new Canvas(gameConfig.getBuffer(), gameConfig.getWidth(), gameConfig.getHeight());
-//  canvas.draw(objects);
+  drawEvent(context, gameConfig, fields, checkPoints, player.getImage());
+  
 });
 
 function drawEvent(context, config, fields, checkPoints, player){
@@ -53,9 +45,29 @@ function drawEvent(context, config, fields, checkPoints, player){
     }, false);
   }
 
-  console.log("player (" + player.getX() + "," + player.getY() + ")");
-  player.getImage().addEventListener('load', function(){
+  var socket = { on: function(){} };
+  var connect = function(){
+    if(!socket.connected){
+      socket = io.connect('http://10.11.12.191:3001/');
+    } else {
+      socket.connect();
+    }
+    socket.on('point', function(data){
+      player.setX(data.x);
+      player.setY(data.y);
+      console.log(data);
+      
+      player.getImage().addEventListener('load', function(){
     context.drawImage(player.getImage(), player.getX(), player.getY());
   }, false);
+    });
+
+
+  };
+  
+  connect();
+
+  console.log("player (" + player.getX() + "," + player.getY() + ")");
+  
   
 }
