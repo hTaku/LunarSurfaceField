@@ -7,8 +7,19 @@
     <title>Luna Surface</title>
 
     <style type="text/css">
+      body{
+        background : #777777;
+      }
       #game {
+        position : absolute;
         border: 1px solid black;
+        margin-left : 350px;
+        z-index : 1;
+      }
+      #checkPoint{
+        position : absolute;
+        margin-left : 350px;
+        z-index : 2;
       }
       #buffer{
         border: 1px solid black;
@@ -22,9 +33,10 @@
   </head>
 
   <body>
-    <canvas id="game" width="400" height="400"></canvas>
+    <canvas id="game" width="1200" height="1200"></canvas>
+    <canvas id="checkPoint" width="1200" height="1200"></canvas>
   </body>
-    <script src="http://www2148uf.sakura.ne.jp:3001/socket.io/socket.io.js"></script>
+    <!--script src="http://10.11.12.191:3001/socket.io/socket.io.js"></script-->
     <script src="js/utils/Canvas.js" defer></script>
     <script src="js/utils/Point.js" defer></script>
     <script src="js/utils/ImageInfo.js" defer></script>
