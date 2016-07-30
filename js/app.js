@@ -1,3 +1,6 @@
+'use strict';
+
+
 // onload時に実行
 window.addEventListener("load", function() {
   console.log("load game window");
@@ -6,13 +9,6 @@ window.addEventListener("load", function() {
   
   var fields = new Array();
   // フィールドを登録
-//   for(var fieldXIndex = 0; fieldXIndex < gameConfig.getWidth(); fieldXIndex += Field.getWidth()){
-//     for(var fieldYIndex = 0; fieldYIndex < gameConfig.getHeight(); fieldYIndex += Field.getHeight()){
-//       var field = new Field(new Point(fieldXIndex, fieldYIndex)).getImage();
-//       fields.push(field);
-//     }
-//   }
-  
   var fields = new Array();
   fields.push(new Field(new Point(0 ,0)).getImage());
 
@@ -32,22 +28,22 @@ window.addEventListener("load", function() {
   var ctxCheckPoint = checkPointCanvas.getContext('2d');
   drawEvent(ctxCheckPoint, gameConfig, checkPoints, player.getImage());
   
+  // マウス操作イベント
+//   window.addEventListener('keypress', function(event){
+// 			console.log(event);
+// 			var x = event.clientX;
+// 			var y = event.clientY;
+// 			console.log("(x, y)=(" + x + ", " + y + ")");
+// //      setServoXY(x, y);
+//   }, true);
+  
+  new SlantFloor().mouseMove();
 });
 
+/**
+ * 描画イベント
+ */
 function drawEvent(context, config, objects, player){
-//   for(var fi in fields){
-//     fields[fi].getImage().addEventListener('load', function(){
-//       for(var fj in fields){
-//         context.drawImage(fields[fj].getImage(), fields[fj].getX(), fields[fj].getY());
-//       }
-//     }, false);
-//   }
-  
-//     field.getImage().addEventListener('load', function(){
-//       context.drawImage(field.getImage(), field.getX(), field.getY());
-//     }, false);
-
-  
   for(var cpi in objects){
     objects[cpi].getImage().addEventListener('load', function() {
       for(var cpj in objects){
@@ -77,6 +73,9 @@ function drawEvent(context, config, objects, player){
 //  connect();
 
   console.log("player (" + player.getX() + "," + player.getY() + ")");
-  
-  
 }
+
+function mouseMove(event){
+  console.log("(x, y) : ("+ event.clientX + ","+ event.clientY +")");
+}
+
