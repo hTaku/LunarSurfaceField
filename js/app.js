@@ -28,16 +28,7 @@ window.addEventListener("load", function() {
   var ctxCheckPoint = checkPointCanvas.getContext('2d');
   drawEvent(ctxCheckPoint, gameConfig, checkPoints, player.getImage());
   
-  // マウス操作イベント
-//   window.addEventListener('keypress', function(event){
-// 			console.log(event);
-// 			var x = event.clientX;
-// 			var y = event.clientY;
-// 			console.log("(x, y)=(" + x + ", " + y + ")");
-// //      setServoXY(x, y);
-//   }, true);
-  
-  new SlantFloor().mouseMove();
+  new SlantFloor().mouseMove(gameConfig.getWidth(), gameConfig.getHeight());
 });
 
 /**
