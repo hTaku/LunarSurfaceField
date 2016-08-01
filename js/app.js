@@ -11,30 +11,62 @@ window.addEventListener("load", function() {
   // フィールドを登録
   var fields = new Array();
   fields.push(new Field(new Point(0 ,0)).getImage());
-
+  var canvas = document.getElementById(gameConfig.getWindow());
+  var context = canvas.getContext('2d');
+  drawEvent(context, gameConfig, fields);
+    
+  //チェックポイント
   var checkPoints = new Array();
   for(var checkPointIndex = 0; checkPointIndex < 3; checkPointIndex++){
     checkPoints.push(new CheckPoint(new Point(parseInt(Math.random() * gameConfig.getWidth()), parseInt(Math.random() * gameConfig.getHeight()))).getImage());  
   }
-
-  var playerX = 0, playerY = 0;
-  var player = new Player(new Point(playerX, playerY))  
-  
-  var canvas = document.getElementById(gameConfig.getWindow());
-  var context = canvas.getContext('2d');
-  drawEvent(context, gameConfig, fields, player.getImage());
-
   var checkPointCanvas = document.getElementById(gameConfig.getCheckPoint());
   var ctxCheckPoint = checkPointCanvas.getContext('2d');
-  drawEvent(ctxCheckPoint, gameConfig, checkPoints, player.getImage());
+  drawEvent(ctxCheckPoint, gameConfig, checkPoints);
+
+//  var playerX = 0, playerY = 0;
+//  var player = new Player(new Point(playerX, playerY))  
+  // ゴール
+  var goals = new Array();
+  goals.push(new Goal(new Point(parseInt(Math.random() * gameConfig.getWidth()), parseInt(Math.random() * gameConfig.getHeight()))).getImage()); 
+  var goalCanvas = document.getElementById(gameConfig.getGoal());
+  var ctxGoal = goalCanvas.getContext('2d');
+  drawEvent(ctxGoal, gameConfig, goals);
+    
+  // websocketから玉の現在位置を取得する
+  var socket = { on: function(){} };
+  if(!socket.connected){
+    socket = io.connect('http://10.11.12.191:3001');
+  } else {
+    socket.connect();
+  }
+  socket.on('point', function(data){
+    // チェックポイントの範囲に入ったら画像を変える
+    for(var checkPoint in checkPoints){
+      if(!checkPoint.isClear() && checkPoint.isInRange(new Point(data.x, data.y))){
+        checkPoint.clear();
+      }
+    }
+    drawEvent(ctxCheckPoint, gameConfig, checkPoints);
+//       player.setX(data.x);
+//       player.setY(data.y);
+//       console.log(data);
+//      
+//       player.getImage().addEventListener('load', function(){
+//         context.drawImage(player.getImage(), player.getX(), player.getY());
+//       }, false);
+  });
+
+  console.log("player (" + player.getX() + "," + player.getY() + ")");
   
+  // キー入力
   new SlantFloor().mouseMove(gameConfig.getWidth(), gameConfig.getHeight());
 });
 
 /**
  * 描画イベント
  */
-function drawEvent(context, config, objects, player){
+function drawEvent(context, config, objects){
   for(var cpi in objects){
     objects[cpi].getImage().addEventListener('load', function() {
       for(var cpj in objects){
@@ -42,31 +74,4 @@ function drawEvent(context, config, objects, player){
       }
     }, false);
   }
-
-//   var socket = { on: function(){} };
-//   var connect = function(){
-//     if(!socket.connected){
-//       socket = io.connect('http://10.11.12.191:3001');
-//     } else {
-//       socket.connect();
-//     }
-//     socket.on('point', function(data){
-//       player.setX(data.x);
-//       player.setY(data.y);
-//       console.log(data);
-      
-//       player.getImage().addEventListener('load', function(){
-//         context.drawImage(player.getImage(), player.getX(), player.getY());
-//       }, false);
-//     });
-//   };
-  
-//  connect();
-
-  console.log("player (" + player.getX() + "," + player.getY() + ")");
 }
-
-function mouseMove(event){
-  console.log("(x, y) : ("+ event.clientX + ","+ event.clientY +")");
-}
-
