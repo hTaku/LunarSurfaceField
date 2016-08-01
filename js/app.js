@@ -48,6 +48,13 @@ window.addEventListener("load", function() {
       }
     }
     drawEvent(ctxCheckPoint, gameConfig, checkPoints);
+
+      
+    // ゴールの範囲に入ったら画像を変える
+    if(!goals[0].isClear() && goals[0].isInRange(new Point(data.x, data.y))){
+      goals[0].clear();
+    }
+    drawEvent(ctxCheckPoint, gameConfig, goals);
 //       player.setX(data.x);
 //       player.setY(data.y);
 //       console.log(data);
