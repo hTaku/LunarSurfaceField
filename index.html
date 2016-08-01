@@ -21,6 +21,10 @@
         margin-left : 350px;
         z-index : 2;
       }
+      #log{
+        position : absolute;
+        z-index : 3;
+      }
       #buffer{
         border: 1px solid black;
       }
@@ -35,17 +39,22 @@
   <body>
     <canvas id="game" width="1200" height="1200"></canvas>
     <canvas id="checkPoint" width="1200" height="1200"></canvas>
+    <input type="text" value="0" id="xRange">
+    <input type="text" value="0" id="yRange">
   </body>
     <!--script src="http://10.11.12.191:3001/socket.io/socket.io.js"></script-->
-    <script src="js/utils/Canvas.js" defer></script>
-    <script src="js/utils/Point.js" defer></script>
-    <script src="js/utils/ImageInfo.js" defer></script>
-    <script src="js/GameConfig.js" defer></script>
-    <script src="js/objects/GameObject.js" defer></script>
-    <script src="js/objects/CheckPoint.js" defer></script>
-    <script src="js/objects/Player.js" defer></script>
-    <script src="js/objects/Field.js" defer></script>
-    <script src="js/ObjectManager.js" defer></script>
-    <script src="js/app.js" defer></script>
+    <script src="./js/SlantFloor/i2c.js"></script>
+    <script src="./js/SlantFloor/PCA9685.js"></script>
+    <script src="./js/SlantFloor/SlantFloor.js"></script>
+    <script src="./js/utils/Canvas.js" defer></script>
+    <script src="./js/utils/Point.js" defer></script>
+    <script src="./js/utils/ImageInfo.js" defer></script>
+    <script src="./js/GameConfig.js" defer></script>
+    <script src="./js/objects/GameObject.js" defer></script>
+    <script src="./js/objects/CheckPoint.js" defer></script>
+    <script src="./js/objects/Player.js" defer></script>
+    <script src="./js/objects/Field.js" defer></script>
+    <script src="./js/ObjectManager.js" defer></script>
+    <script src="./js/app.js" defer></script>
 
 </html>
