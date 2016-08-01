@@ -7,21 +7,21 @@ function SlantFloor(){};
 
 SlantFloor.prototype.mouseMove = function(width, height){
   console.log("ONLOAD")
-// 	var i2cPortNumber = 0;
-// 	var i2cAddress = 0x40;
-// 	var touchDeviceAddress = 0x5a;
-// 	navigator.requestI2CAccess().then(function(i2cAccess) {
-// 		port = i2cAccess.open(0);
-// 		console.log( "is i2cPort.write8? : ", port.write8)
-// 		// init PCA9685 PWM cntlr
-// 		PCA9685.init(port,i2cAddress).then(function(){
-// 				Sleep(3);
-// 				setServoXY( 0, 0 );
+ 	var i2cPortNumber = 0;
+ 	var i2cAddress = 0x40;
+ 	var touchDeviceAddress = 0x5a;
+ 	navigator.requestI2CAccess().then(function(i2cAccess) {
+ 		port = i2cAccess.open(0);
+ 		console.log( "is i2cPort.write8? : ", port.write8)
+ 		// init PCA9685 PWM cntlr
+ 		PCA9685.init(port,i2cAddress).then(function(){
+ 				Sleep(3);
+ 				setServoXY( 0, 0 );
 			
-// 				setInterval(function(){
-// 					// currently do nothing...
-// 				},100);
-// 		});
+ 				setInterval(function(){
+ 					// currently do nothing...
+ 				},100);
+ 		});
 		
 		window.addEventListener('keypress', function(event){
 			console.log(event);
@@ -55,11 +55,11 @@ SlantFloor.prototype.mouseMove = function(width, height){
       setServoXY(x, y);
 		}, true);
 		
-//  },
-//  function(error) {
-//     console.log(error.message);
-//  }
-//  );
+  },
+  function(error) {
+     console.log(error.message);
+  }
+  );
 };
 
 
@@ -102,8 +102,6 @@ function getXYval(){
 }
 
 function setXYindicator( sx , sy ){
-// 	(document.getElementById("xVal")).innerHTML=xVal;
-// 	(document.getElementById("yVal")).innerHTML=yVal;
 	document.getElementById("xRange").value = sx.toString(10);
 	document.getElementById("yRange").value = sy.toString(10);
 }
